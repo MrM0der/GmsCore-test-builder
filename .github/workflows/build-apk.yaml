@@ -7,7 +7,7 @@ on:
       repository:
         description: "Git repository URL"
         required: true
-        default: "https://github.com/android/sunflower"
+        default: "https://github.com/ReVanced/GmsCore"
       jdkVersion:
         description: "OpenJDK version to use: 8 / 11 / 17 etc."
         required: false
@@ -35,6 +35,7 @@ jobs:
         run: |
           if [ ! -f "gradlew" ]; then gradle wrapper; fi
           chmod +x gradlew
+          sed -i 's/app\.revanced/com.google/g' build.gradle
           ./gradlew ${{ github.event.inputs.taskName }} --stacktrace
 
       - name: Upload the APK artifact with 1 day retention
